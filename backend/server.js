@@ -28,7 +28,8 @@ app.get("/", (req, res) => {
 });
 
 //add new item to json file
-app.post("/items", addItem)
+// app.post("/items", addItem)
+app.post("/items", cookieAuth, addItem);
 
 function addItem(request, response) {
     // Converting Javascript object (Task Item) to a JSON string
@@ -56,7 +57,9 @@ function addItem(request, response) {
     response.send(200);
 }
 
-app.get("/items", getItems)
+// app.get("/items", getItems)
+app.get("/items", cookieAuth, getItems);
+
 //** week5, get all items from the json database*/
   function getItems (request, response) {
     var data = fs.readFileSync('database.json');
@@ -67,7 +70,8 @@ app.get("/items", getItems)
     response.json(JSON.parse(data));
 }
 
-app.get("/items/search", searchItems)
+// app.get("/items/search", searchItems)
+app.get("/items/search", cookieAuth, searchItems);
 //**week 5, search items service */
   function searchItems (request, response) {
     var searchField = request.query.taskname;
@@ -100,3 +104,9 @@ app.get("/logout", (req, res) => {
     res.clearCookie('user');
     res.end();
 });
+
+app.post("/items", cookieAuth, addItem);
+
+app.get("/items", cookieAuth, getItems);
+
+app.get("/items/search", cookieAuth, searchItems);

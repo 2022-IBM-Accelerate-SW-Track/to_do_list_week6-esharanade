@@ -23,6 +23,7 @@ export const createUser = async (username, password) => {
                 password: password
             },
             withCredentials: true
+            //SHOULD THIS BE THERE?
         }
         return await axios.post(`${baseUrl}/users`, {}, options);
     } catch (e) {
